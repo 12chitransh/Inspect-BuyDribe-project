@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -27,15 +28,20 @@ const Home = () => {
             </div>
         {/* Vehicle type selection */}
     <div className="w-full flex flex-col items-center mt-8 mb-24 animate-fadeIn">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">What type of vehicle are you purchasing?</h3>
-            <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400">Car</button>
-                <button className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-green-400">SUV</button>
-                <button className="bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">4x4</button>
-                <button className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-red-400">Truck</button>
-                <button className="bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-purple-400">Commercial</button>
+        <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">What type of vehicle are you purchasing?</h3>
+        <div className="flex flex-col md:flex-row items-center justify-center w-full gap-8">
+            <div className="flex flex-col gap-4 w-full max-w-xs">
+                <Link to="/car" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center">Car</Link>
+                <Link to="/suv" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center">SUV</Link>
+                <Link to="/4x4" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center">4x4</Link>
+                <Link to="/truck" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center">Truck</Link>
+                <Link to="/commercial" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-200 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center">Commercial</Link>
+            </div>
+            <div className="w-full max-w-md flex items-center justify-center">
+                <span className="text-xl md:text-2xl font-bold text-blue-700 text-center">Thousands of Sydney car buyers trust Inspect Buy Drive.</span>
             </div>
         </div>
+    </div>
         </section>
     );
 };
