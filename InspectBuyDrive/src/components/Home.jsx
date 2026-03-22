@@ -1,79 +1,131 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { cars } from "../data/cars";
+import { CartContext } from "../context/CartContext";
 
 const Home = () => {
-    return (
-        <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-gray-200 animate-fadeIn">
-            <div className="bg-white rounded-2xl shadow-2xl px-8 py-10 w-full max-w-2xl border border-gray-200 flex flex-col items-center animate-fadeInScale">
-                <div className="w-full bg-blue-50 rounded-xl py-6 px-4 mb-4">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-blue-800 text-center tracking-tight animate-fadeInUp">
-                        Let Phil take a look first before you hand over the cash.
-                    </h2>
-                </div>
-                <p className="text-xl md:text-2xl text-red-600 font-bold mb-2 text-center uppercase tracking-wide animate-fadeInUp">
-                    FIXED PRICING, NO SURPRISES
-                </p>
-                <p className="text-lg md:text-xl text-gray-800 mb-2 text-center font-semibold animate-fadeInUp">
-                    ALL LIGHT VEHICLES <span className="font-bold text-blue-700">$275</span>
-                </p>
-                <p className="text-base md:text-lg text-gray-600 mb-2 text-center animate-fadeInUp">
-                    Full Comprehensive Check Incl. PPSR
-                </p>
-                <p className="text-base md:text-lg text-gray-600 text-center animate-fadeInUp">
-                    Vehicle Inspection Services Sydney
-                </p>
-                <div className="flex justify-center mt-8 animate-fadeInUp">
-                    <button className="bg-gradient-to-r from-red-500 to-red-700 text-white px-8 py-3 rounded-xl shadow-lg hover:scale-105 hover:from-red-600 hover:to-red-800 transition-all font-bold text-xl flex items-center gap-2">
-                        <span className="animate-bounce">🚗</span>
-                        Book Inspection
+  const { addToCart } = useContext(CartContext);
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            Find Your Perfect Car
+          </h1>
+          <p className="text-xl md:text-2xl mb-8">
+            Discover amazing deals on second-hand cars from trusted sellers
+          </p>
+          <Link
+            to="/cars"
+            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
+          >
+            Browse Cars
+          </Link>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🔍</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Verified Cars</h3>
+              <p className="text-gray-600">All our cars are thoroughly inspected and verified for quality.</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Best Prices</h3>
+              <p className="text-gray-600">Competitive pricing with no hidden fees or surprises.</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🚗</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Wide Selection</h3>
+              <p className="text-gray-600">Choose from a wide variety of makes, models, and price ranges.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Cars Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold">Featured Cars</h2>
+            <Link to="/cars" className="text-blue-600 font-semibold hover:text-blue-700">
+              View all cars →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cars.slice(0, 6).map((car) => (
+              <div key={car.id} className="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                <img src={car.image} alt={car.name} className="w-full h-44 object-cover" />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-1">{car.name}</h3>
+                  <p className="text-gray-600 mb-2">{car.description}</p>
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-green-600 font-bold">${car.price.toLocaleString()}</span>
+                    <span className="text-gray-500 text-sm">{car.year}</span>
+                  </div>
+                  <div className="flex gap-2 mb-3 text-xs text-gray-500">
+                    <span>{car.fuel}</span>
+                    <span>|</span>
+                    <span>{car.transmission}</span>
+                    <span>|</span>
+                    <span>{car.mileage.toLocaleString()} km</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link
+                      to={`/cars/${car.id}`}
+                      className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-center hover:bg-blue-700"
+                    >
+                      View
+                    </Link>
+                    <button
+                      onClick={() => addToCart(car)}
+                      className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+                    >
+                      Add to cart
                     </button>
+                  </div>
                 </div>
-            </div>
-            {/* Vehicle type selection */}
-            <div className="w-full flex flex-col items-center mt-12 mb-24 animate-fadeInScale">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center animate-fadeInUp">What type of vehicle are you purchasing?</h3>
-                <div className="flex flex-col md:flex-row items-center justify-center w-full gap-10">
-                    <div className="flex flex-col gap-5 w-full max-w-xs">
-                        <Link to="/car" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-200 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center animate-fadeInUp">Car</Link>
-                        <Link to="/suv" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-200 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center animate-fadeInUp">SUV</Link>
-                        <Link to="/4x4" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-200 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center animate-fadeInUp">4x4</Link>
-                        <Link to="/truck" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-200 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center animate-fadeInUp">Truck</Link>
-                        <Link to="/commercial" className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-200 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center animate-fadeInUp">Commercial</Link>
-                    </div>
-                    <div className="w-full max-w-md flex items-center justify-center animate-fadeInUp">
-                        <span className="text-2xl md:text-3xl font-bold text-blue-700 text-center drop-shadow-lg">Thousands of Sydney car buyers trust Inspect Buy Drive.</span>
-                    </div>
-                </div>
-            </div>
-            {/* Animation styles */}
-            <style>
-                {`
-                .animate-fadeIn { animation: fadeIn 1.2s ease-in; }
-                .animate-fadeInUp { animation: fadeInUp 1.2s cubic-bezier(.4,0,.2,1); }
-                .animate-fadeInScale { animation: fadeInScale 1.2s cubic-bezier(.4,0,.2,1); }
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px);}
-                    to { opacity: 1; transform: none;}
-                }
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(40px);}
-                    to { opacity: 1; transform: translateY(0);}
-                }
-                @keyframes fadeInScale {
-                    from { opacity: 0; transform: scale(0.95);}
-                    to { opacity: 1; transform: scale(1);}
-                }
-                .animate-bounce {
-                    animation: bounce 1s infinite;
-                }
-                @keyframes bounce {
-                    0%, 100% { transform: translateY(0);}
-                    50% { transform: translateY(-8px);}
-                }
-                `}
-            </style>
-        </section>
-    );
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-gray-800 text-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to Find Your Dream Car?</h2>
+          <p className="text-xl mb-8">Join thousands of satisfied customers who found their perfect vehicle with us.</p>
+          <div className="flex justify-center space-x-4">
+            <Link
+              to="/signup"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Sign Up Now
+            </Link>
+            <Link
+              to="/cars"
+              className="bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            >
+              View Cars
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default Home;
